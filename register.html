@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrace</title>
+</head>
+<body>
+    <h2>Registrace</h2>
+    <form id="registrationForm">
+        <label for="username">Uživatelské jméno:</label><br>
+        <input type="text" id="username" name="username" required><br>  
+        <label for="password">Heslo:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Registrovat">
+    </form>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            fetch("register.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.error("Chyba při zpracování požadavku:", error);
+            });
+        });
+    </script>
+</body>
+</html>
